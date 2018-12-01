@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.sharding.jdbc.demo.dao.OrderItemRepository">
+
+    <insert id="insert" parameterType="com.example.sharding.jdbc.demo.model.OrderItem">
+        INSERT INTO t_order_item (
+        order_item_id,order_id, user_id, status
+        )
+        VALUES (
+        #{orderItemId,jdbcType=BIGINT},
+        #{orderId,jdbcType=BIGINT},
+        #{userId,jdbcType=INTEGER},
+        #{status,jdbcType=VARCHAR}
+        )
+    </insert>
+
+</mapper>

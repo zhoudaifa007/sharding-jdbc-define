@@ -1,0 +1,46 @@
+mybatis:
+    config-location: classpath:META-INF/mybatis-config.xml
+sharding:
+    jdbc:
+        config:
+            sharding:
+                default-database-strategy:
+                    standard:
+                        precise-algorithm-class-name: com.example.sharding.jdbc.demo.config.DatabasePreciseShardingAlgorithm
+                        sharding-column: user_id
+                tables:
+                    t_order:
+                        actual-data-nodes: ds_${0..1}.t_order_${0..1}
+                        table-strategy:
+                            standard:
+                                precise-algorithm-class-name: com.example.sharding.jdbc.demo.config.TablePreciseShardingAlgorithm
+                                sharding-column: order_id
+                    t_order_item:
+                        actual-data-nodes: ds_${0..1}.t_order_item_${0..1}
+                        table-strategy:
+                            standard:
+                                precise-algorithm-class-name: com.example.sharding.jdbc.demo.config.TablePreciseShardingAlgorithm
+                                sharding-column: order_id
+        datasource:
+            ds_0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: redhat
+                type: org.apache.commons.dbcp.BasicDataSource
+                url: jdbc:mysql://localhost:3306/demo_ds_0
+                username: root
+            ds_1:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: redhat
+                type: org.apache.commons.dbcp.BasicDataSource
+                url: jdbc:mysql://localhost:3306/demo_ds_1
+                username: root
+            names: ds_0,ds_1
+logging:
+    file: logs/spring-boot-logging.log
+    level:
+        com:
+            spring:
+                ibatis:
+                    UserMapper: DEBUG
+        org:
+            springframework: WARN
