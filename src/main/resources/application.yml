@@ -4,6 +4,7 @@ sharding:
     jdbc:
         config:
             sharding:
+                default-data-source-name: springboot
                 default-database-strategy:
                     standard:
                         precise-algorithm-class-name: com.example.sharding.jdbc.demo.config.DatabasePreciseShardingAlgorithm
@@ -34,7 +35,14 @@ sharding:
                 type: org.apache.commons.dbcp.BasicDataSource
                 url: jdbc:mysql://localhost:3306/demo_ds_1
                 username: root
-            names: ds_0,ds_1
+            springboot:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: redhat
+                type: org.apache.commons.dbcp.BasicDataSource
+                url: jdbc:mysql://localhost:3306/springboot
+                username: root
+            names: ds_0,ds_1,springboot
+
 logging:
     file: logs/spring-boot-logging.log
     level:
